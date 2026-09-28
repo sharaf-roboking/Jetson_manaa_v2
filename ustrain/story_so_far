@@ -1,0 +1,18 @@
+NOTE 1 : ustrain seems to need to unplug and plug every run!!!!!
+NOTE 2 YOU NEED TO CHANGE runtime from 60*60*24 seconds and recompile for more if needed over a day of capture
+
+cmake .. -DMICROSTRAIN_BUILD_EXAMPLES=ON
+in the folder
+~/Downloads/ustrain/mip_sdk-master/build
+
+and then
+
+make
+
+in the folder
+~/Downloads/ustrain/mip_sdk-master/build/examples/c/7_series/stream_imu
+
+and run
+
+./7_series_stream_imu_example_c > test.txt
+in the same folder

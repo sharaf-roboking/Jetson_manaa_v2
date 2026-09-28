@@ -1,0 +1,101 @@
+----> check the link time between the ublox and the jetson nano:
+
+# Confirm the u-blox USB ports exist
+ls -l /dev/ttyUSB*
+
+# Start/restart GPS
+sudo systemctl restart gpsd.socket
+sudo systemctl restart gpsd
+
+# Start/restart time synchronization
+sudo systemctl restart chrony
+
+# Check GPS
+cgps
+
+chronyc sources -v
+
+cgps
+
+
+sudo systemctl stop gpsd
+sudo systemctl stop gpsd.socket
+
+----->to run IMU, inclonometer and gps log:
+sh start_all_v2.sh 
+with runing inclonometer:
+sudo sh start_inclinometersh
+
+
+
+------>take image with time , if you need change the explosure time change the slee_time:
+
+----->detect the camera:
+/usr/local/bin/gphoto2 --auto-detec
+
+------->run the camera:
+./start_camera_v3.sh 
+
+---Imu sensor:
+# 1. Make sure no old IMU process is still using the port
+sudo pkill -f 7_series_stream
+
+# 2. Check that /dev/ttyACM0 is free
+sudo fuser -v /dev/ttyACM0
+
+
+------------inclonometer sensor:
+sudo pkill -f receive-angles.py
+
+
+
+
+
+
+----------------------------
+1) step(1) on the jetson orin nano:
+Before each new test, the safest cleanup is:
+
+sudo pkill -f 7_series_stream
+sudo pkill -f receive-angles.py
+sudo systemctl stop gpsd
+sudo systemctl stop gpsd.socket
+
+
+
+Then run everything:
+cd Download/
+sudo sh start_all_v2.sh
+
+2)step(2) on the inclinometer RPI run:
+A) run in terminal one:
+cd Downloads/manaa/bin/
+sudo ./iol-master-appl
+B)run on terminal 2:
+cd Download/manaa/examples/python/
+sudo python3 read-angles.py
+
+3)run the camera script:
+run the camera:
+#check if we can detect the camera:
+/usr/local/bin/gphoto2 --auto-detect
+~then run the script:
+cd Download/
+./start_camera_v3.sh
+
+5)step(3) on the magnotometer run the commands in the readme file
+
+
+****to run the the all sensor and the camera in one command :
+sudo sh start_all_v3.sh
+
+
+
+to run inclonometer and camera run this:
+sh ./start_camera_inclo.sh
+
+
+
+****to run the the all sensor and the camera in one command :
+sudo sh start_all_v4.sh
+

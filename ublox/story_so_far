@@ -1,0 +1,21 @@
+
+story what happened so far
+downloaded the tegra 148 source
+compiled kernel
+lost wifi
+but got ublox
+after insmod ftdi_sio.ko
+sudo modprobe usbserial vendor=0x1546 product 0x0509
+sudo modprobe ftdi_sio vendor=0x1546 product 0x0509
+and then doing
+echo "1546 0509" | sudo tee /sys/bus/usb-serial/drivers/ftdi_sio/new_id
+
+you can restore wifi overwriting the saved image in /boot
+and then going back by getting the image from download kernel arch amd64
+dmesg | tail -n 20
+lsusb
+sudo rmmod ftdi_sio
+sudo rmmod usbserial 
+sudo lsmod
+
+round 2 what was able to be done was to compile ftdi_sio.ko module and load it without recompiling whole kernel
